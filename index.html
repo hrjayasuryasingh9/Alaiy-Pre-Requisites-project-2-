@@ -11,7 +11,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css" />
     <style>
       .First-section {
         display: flex;
@@ -422,7 +422,7 @@
     <script>
       const product_list = document.getElementById("products-list");
       const another_list = document.getElementById("another-products-list");
-      fetch("/Products.json")
+      fetch("Products.json")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -453,7 +453,7 @@
         .catch((error) => {
           console.error("Error fetching the products:", error);
         });
-      fetch("/Products.json")
+      fetch("Products.json")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -489,6 +489,6 @@
           console.error("Error fetching the products:", error);
         });
     </script>
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
