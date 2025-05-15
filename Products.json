@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "title": "HyperX Cloud Alpha Wireless",
+    "description": "Wireless gaming headset with deep bass and long battery life.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_cloud_alpha_wireless_1_main_900x.jpg?v=1745914432",
+    "price": 149.99,
+    "category": "Headphones",
+    "stock": 30,
+    "rating": 4.6
+  },
+  {
+    "id": 2,
+    "title": "HyperX Cloud III Black",
+    "description": "High-fidelity headphones for immersive gaming experience.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_cloud_iii_black_66x0048_main_1_900x.jpg?v=1737967101",
+    "price": 129.99,
+    "category": "Headphones",
+    "stock": 25,
+    "rating": 4.5
+  },
+  {
+    "id": 3,
+    "title": "HyperX Stinger 2 White PS",
+    "description": "Comfortable white headphones with PS compatibility.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_stinger_2_white_ps_75x29aa_main_1_900x.jpg?v=1689359518",
+    "price": 79.99,
+    "category": "Headphones",
+    "stock": 20,
+    "rating": 4.2
+  },
+  {
+    "id": 4,
+    "title": "HyperX Cloud Stinger Core Wireless",
+    "description": "Wireless core headset designed for casual gamers.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_cloud_stinger_core_wireless_ps_01_main_900x.jpg?v=1699574309",
+    "price": 89.99,
+    "category": "Headphones",
+    "stock": 15,
+    "rating": 4.3
+  },
+  {
+    "id": 5,
+    "title": "Fire-Boltt Ninja Smartwatch",
+    "description": "Smartwatch with multiple sports modes and health tracking.",
+    "image": "https://cmsprod.garmin-india.com/media/vi%C3%8Cvoactive%205%20%C3%82%C2%A0010-02862-50.webp",
+    "price": 59.99,
+    "category": "Smart Watches",
+    "stock": 40,
+    "rating": 4.1
+  },
+  {
+    "id": 6,
+    "title": "Garmin Venu 3 Black",
+    "description": "Premium GPS smartwatch with AMOLED display.",
+    "image": "https://cmsprod.garmin-india.com/media/cf-xl-95.webp",
+    "price": 349.99,
+    "category": "Smart Watches",
+    "stock": 12,
+    "rating": 4.7
+  },
+  {
+    "id": 7,
+    "title": "Garmin Forerunner 965",
+    "description": "Advanced running and triathlon smartwatch.",
+    "image": "https://cmsprod.garmin-india.com/media/010-02905-21-1.webp",
+    "price": 499.99,
+    "category": "Smart Watches",
+    "stock": 10,
+    "rating": 4.8
+  },
+  {
+    "id": 8,
+    "title": "Garmin Venu 3 White",
+    "description": "Elegant white smartwatch for daily fitness and style.",
+    "image": "https://cmsprod.garmin-india.com/media/Venu%C3%82%C2%AE%203%201-1.webp",
+    "price": 379.99,
+    "category": "Smart Watches",
+    "stock": 8,
+    "rating": 4.6
+  },
+  {
+    "id": 9,
+    "title": "HyperX Clutch Tanto",
+    "description": "Ergonomic gaming controller for PC and mobile.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_clutch_tanto_8b1s0aa_main_1_900x.jpg?v=1711735921",
+    "price": 59.99,
+    "category": "Controllers",
+    "stock": 18,
+    "rating": 4.4
+  },
+  {
+    "id": 10,
+    "title": "HyperX Clutch Gladiate",
+    "description": "Wired gaming controller with programmable buttons.",
+    "image": "https://row.hyperx.com/cdn/shop/products/hyperx_clutch_gladiate_6l366aa_main_1_900x.jpg?v=1675110393",
+    "price": 49.99,
+    "category": "Controllers",
+    "stock": 15,
+    "rating": 4.2
+  },
+  {
+    "id": 11,
+    "title": "HyperX ChargePlay Duo PS5",
+    "description": "Dual charging dock for PS5 controllers.",
+    "image": "https://row.hyperx.com/cdn/shop/products/hyperx_chargeplay_duo_ps5_1_main_900x.jpg?v=1662421124",
+    "price": 39.99,
+    "category": "Controllers",
+    "stock": 22,
+    "rating": 4.5
+  },
+  {
+    "id": 12,
+    "title": "HyperX Clutch Wireless",
+    "description": "Wireless controller with Bluetooth and USB support.",
+    "image": "https://row.hyperx.com/cdn/shop/products/hyperx_clutch_wireless_gaming_controller_1_main_900x.jpg?v=1662421125",
+    "price": 69.99,
+    "category": "Controllers",
+    "stock": 17,
+    "rating": 4.3
+  },
+  {
+    "id": 13,
+    "title": "HyperX QuadCast 2 Gray",
+    "description": "Professional USB microphone with anti-vibration shock mount.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_quadcast_2_gray_an1d9aa_main_1_900x.jpg?v=1740682971",
+    "price": 129.99,
+    "category": "Microphones",
+    "stock": 20,
+    "rating": 4.7
+  },
+  {
+    "id": 14,
+    "title": "HyperX QuadCast 2 S",
+    "description": "RGB microphone with tap-to-mute sensor.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_quadcast_2_s_9a273aa_main_1_900x.jpg?v=1737720275",
+    "price": 139.99,
+    "category": "Microphones",
+    "stock": 18,
+    "rating": 4.8
+  },
+  {
+    "id": 15,
+    "title": "HyperX DuoCast",
+    "description": "Compact USB microphone for streamers and podcasters.",
+    "image": "https://row.hyperx.com/cdn/shop/products/hyperx_duocast_1_main_900x.jpg?v=1662449659",
+    "price": 89.99,
+    "category": "Microphones",
+    "stock": 25,
+    "rating": 4.6
+  },
+  {
+    "id": 16,
+    "title": "HyperX QuadCast S White",
+    "description": "Stylish white microphone with customizable RGB lighting.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_quadcast_s_white_1_main_900x.jpg?v=1737792675",
+    "price": 139.99,
+    "category": "Microphones",
+    "stock": 16,
+    "rating": 4.7
+  },
+  {
+    "id": 17,
+    "title": "HyperX Pulsefire Fuse Wireless",
+    "description": "Precision wireless gaming mouse with long battery life.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_pulsefire_fuse_wireless_a1ky6aa_main_1_900x.jpg?v=1746131688",
+    "price": 79.99,
+    "category": "Mouses",
+    "stock": 30,
+    "rating": 4.5
+  },
+  {
+    "id": 18,
+    "title": "HyperX Pulsefire Haste 2 Pro 4K",
+    "description": "Ultra-light wireless mouse with 4K polling rate.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_pulsefire_haste_2_pro_4k_wireless_a1ky5aa_angle_9_900x.jpg?v=1735944040",
+    "price": 99.99,
+    "category": "Mouses",
+    "stock": 12,
+    "rating": 4.6
+  },
+  {
+    "id": 19,
+    "title": "HyperX Pulsefire Core White Pink",
+    "description": "Stylish mouse with RGB lighting and ergonomic grip.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_pulsefire_core_white_pink_1_main_900x.jpg?v=1732516883",
+    "price": 49.99,
+    "category": "Mouses",
+    "stock": 14,
+    "rating": 4.4
+  },
+  {
+    "id": 20,
+    "title": "HyperX Pulsefire Haste 1",
+    "description": "Lightweight mouse optimized for speed and comfort.",
+    "image": "https://row.hyperx.com/cdn/shop/files/hyperx_pulsefire_haste_1_top_down_900x.jpg?v=1700189332",
+    "price": 59.99,
+    "category": "Mouses",
+    "stock": 22,
+    "rating": 4.5
+  }
+]
