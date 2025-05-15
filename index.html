@@ -238,9 +238,10 @@
         padding: clamp(10px, 10vw, 50px);
         color: white;
         text-align: center;
-        font-size: 30px; /*nedd to write media */
+        font-size: 30px;
         display: flex;
         justify-content: center;
+        /* padding: 50px 10px; */
       }
       .Fouth-section .Fourth-section-image h1 {
         max-width: 700px;
@@ -248,6 +249,15 @@
       @media (min-width: 1000px) {
         .First-section .First-section-image .Button {
           margin: 50px 0px;
+        }
+      }
+      @media (max-width: 773px) {
+        .Fouth-section .Fourth-section-image {
+          font-size: 20px;
+        }
+        .Fouth-section .Fourth-section-image h1 {
+          min-width: 300px;
+          width: 500px;
         }
       }
     </style>
