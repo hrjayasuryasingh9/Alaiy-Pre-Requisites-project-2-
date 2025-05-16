@@ -18,7 +18,11 @@
         padding: 0px;
         box-sizing: border-box;
       }
-
+      .Orders-Container h1 {
+        width: 100%;
+        text-align: center;
+        padding-top: 70px;
+      }
       .cart-container {
         margin-top: 70px;
         display: flex;
@@ -120,7 +124,7 @@
       @media (max-width: 1000px) {
         .cart-checkout {
           width: 100%;
-          height: 40vh;
+          height: 45vh;
         }
         .cart-list {
           width: 100%;
@@ -178,6 +182,7 @@
         font-size: 1.2rem;
         cursor: pointer;
         transition: all 0.3s ease;
+        margin: 10px 0px;
       }
 
       .checkout-btn:hover {
@@ -191,6 +196,12 @@
         align-items: center;
         height: 100%;
         font-size: 20px;
+      }
+      .clear {
+        background-color: red;
+      }
+      .clear:hover {
+        background: rgb(209, 2, 2);
       }
     </style>
   </head>
@@ -243,6 +254,9 @@
         </div>
         <button class="checkout-btn" onclick="handleCheckout()">
           Checkout
+        </button>
+        <button onclick="clearCart()" class="checkout-btn clear">
+          Clear Cart
         </button>
       </div>
     </div>
@@ -469,6 +483,74 @@
         document.getElementById(
           "total-price"
         ).textContent = `$${totalPrice.toFixed(2)}`;
+      }
+      async function handleCheckout() {
+        try {
+          const token = localStorage.getItem("access_token"); // Get token if auth is needed
+
+          if (!token) {
+            alert("You must be logged in to place an order.");
+            return;
+          }
+
+          const response = await fetch(
+            "https://electrozone-cqf9.onrender.com/orders/create-order",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || "Failed to place order");
+          }
+
+          const data = await response.json();
+          console.log("Order Response:", data);
+
+          alert(`✅ ${data.message}\nOrder ID: ${data.order_id}`);
+          getCartItems();
+        } catch (error) {
+          console.error("Checkout Error:", error.message);
+          alert(`❌ Error: ${error.message}`);
+        }
+      }
+      async function clearCart() {
+        try {
+          const token = localStorage.getItem("access_token");
+
+          if (!token) {
+            alert("You must be logged in to clear your cart.");
+            return;
+          }
+
+          const response = await fetch(
+            "https://electrozone-cqf9.onrender.com/cart/clear",
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || "Failed to clear cart");
+          }
+
+          const data = await response.json();
+          console.log("Cart Cleared:", data.message);
+          alert(` ${data.message}`);
+          getCartItems();
+        } catch (error) {
+          console.error("Clear Cart Error:", error.message);
+          alert(`❌ Error: ${error.message}`);
+        }
       }
     </script>
   </body>

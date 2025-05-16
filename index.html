@@ -175,6 +175,7 @@
         right: 3%;
         font-size: 20px;
         cursor: pointer;
+        display: block;
       }
       .Third-section .products-list .product p,
       .Fifth-section .another-products-list .product p {
@@ -450,7 +451,7 @@
                     "
                     onclick="window.location.href='ProductviewPage.html?id=${product.id}'"
                 >
-                    <span class="add-cart" onclick="addToCart(${product.id}, 1)"><i class="fa-solid fa-cart-plus"></i></span>
+                    <span class="add-cart" onclick="addToCart(${product.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>
                 <p>${product.title}</p>
                 <div class="Price-div">
@@ -486,7 +487,7 @@
                     "
                     onclick="window.location.href='ProductviewPage.html?id=${product.id}'"
                 >
-                    <span class="add-cart" onclick="addToCart(${product.id}, 1)"><i class="fa-solid fa-cart-plus"></i></span>
+                    <span class="add-cart" onclick="addToCart(${product.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>
                 <p>${product.title}</p>
                 <div class="Price-div">

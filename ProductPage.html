@@ -361,7 +361,7 @@
           productList.innerHTML += `
             <div class="product">
               <div class="product-image" style="background-image: url(${product.image});" onclick="window.location.href='ProductviewPage.html?id=${product.id}'">
-                <span class="add-cart"><i class="fa-solid fa-cart-plus"></i></span>
+                <span class="add-cart" onclick="addToCart(${product.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
               </div>
               <p>${product.title}</p>
               <div class="Price-div">

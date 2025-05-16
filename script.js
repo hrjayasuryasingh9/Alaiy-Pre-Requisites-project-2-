@@ -1,3 +1,29 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const dropdownMenu = document.getElementById("dropdownMenu");
+  const nav_cart = document.querySelector(".fa-cart-shopping");
+  const token = localStorage.getItem("access_token");
+
+  dropdownMenu.innerHTML = "";
+
+  if (token) {
+    dropdownMenu.innerHTML += `
+      <li>
+        <a href="Orderpage.html"><i class="fa-solid fa-list-check"></i> My Orders</a>
+      </li>
+      <li>
+        <a onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      </li>
+    `;
+  } else {
+    dropdownMenu.innerHTML += `
+      <li>
+        <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Login</a>
+      </li>
+    `;
+    nav_cart.style.display = "none";
+  }
+});
+
 const userIcon = document.getElementById("userIcon");
 const dropdownMenu = document.getElementById("dropdownMenu");
 
@@ -14,8 +40,13 @@ document.addEventListener("click", function (event) {
     dropdownMenu.style.display = "none";
   }
 });
+function handleLogout() {
+  localStorage.removeItem("access_token");
+  window.location.href = "login.html";
+}
 
-async function addToCart(productId, quantity) {
+async function addToCart(productId, quantity, event) {
+  event.stopPropagation();
   const token = localStorage.getItem("access_token");
   if (!token) {
     alert("You must be logged in to add to cart.");

@@ -297,7 +297,7 @@
   <body>
     <header>
       <div><a href="index.html">ELECTRO ZONE</a></div>
-      <ul>
+      <ul id="Nav-links">
         <li>
           <a href="cartpage.html"><i class="fa-solid fa-cart-shopping"></i></a>
         </li>
@@ -467,9 +467,9 @@
             qtyValue.textContent = quantity;
           });
 
-          checkoutBtn.addEventListener("click", () => {
+          checkoutBtn.addEventListener("click", (e) => {
             console.log(product.id, quantity);
-            addToCart(product.id, quantity);
+            addToCart(product.id, quantity, e);
           });
         } catch (error) {
           console.error("Error:", error.message);
@@ -520,7 +520,7 @@
               productList.innerHTML += `
         <div class="product">
           <div class="product-image" style="background-image: url(${item.image});" onclick="window.location.href='ProductviewPage.html?id=${item.id}'">
-            <span class="add-cart"><i class="fa-solid fa-cart-plus"></i></span>
+            <span class="add-cart" onclick="addToCart(${item.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
           </div>
           <p>${item.title}</p>
           <div class="Price-div">
