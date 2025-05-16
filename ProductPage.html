@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .Second-Header {
+        margin-top: 68px;
+        width: 100%;
+        background-color: white;
+        padding: 20px 20px;
+        display: flex;
+        position: fixed;
+        top: 0%;
+        border-bottom: 1px solid #ddd;
+        z-index: 9;
+      }
+
+      .filter-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .filter-container select {
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+      }
+      .products-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: start;
+        width: 100%;
+        padding: 30px 10px;
+        padding-top: 140px;
+        min-height: 70vh;
+      }
+      .products-list {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px 10px;
+      }
+      .product {
+        border-radius: 5px;
+        flex-shrink: 0;
+        width: 250px;
+        height: 300px;
+        background-color: #fff;
+        overflow: hidden;
+      }
+      .product .product-image {
+        position: relative;
+        width: 100%;
+        height: 80%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .product .product-image .add-cart {
+        position: absolute;
+        top: 3%;
+        right: 3%;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .product p {
+        padding: 0px 10px;
+        font-size: 17px;
+        font-weight: 400;
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+      .product .Price-div {
+        min-width: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+      }
+      .product .Price-div span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #fff9a8;
+        padding: 2px 5px;
+        border-radius: 5px;
+      }
+      .product .Price-div span i {
+        color: rgb(255, 225, 0);
+      }
+      .product .Price-div h2 {
+        width: 250px;
+        font-size: 17px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+
+      /* Skeleton Card Container */
+      .skeleton-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 16px;
+        margin: 12px;
+        width: 250px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        animation: pulse 1.2s ease-in-out infinite;
+      }
+
+      /* Skeleton Elements */
+      .skeleton {
+        background: linear-gradient(
+          -90deg,
+          #eeeeee 0%,
+          #dddddd 50%,
+          #eeeeee 100%
+        );
+        background-size: 400% 400%;
+        border-radius: 6px;
+        animation: loading 1.5s ease-in-out infinite;
+      }
+
+      .skeleton-img {
+        height: 180px;
+        width: 100%;
+        border-radius: 8px;
+      }
+
+      .skeleton-text {
+        height: 18px;
+      }
+
+      /* Skeleton Animations */
+      @keyframes loading {
+        0% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div><a href="index.html">ELECTRO ZONE</a></div>
+      <ul>
+        <li>
+          <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+        </li>
+        <li>
+          <a href="" id="userIcon"><i class="fa-solid fa-user"></i></a>
+          <ul class="dropdown-menu" id="dropdownMenu">
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Login</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fa-solid fa-list-check"></i> My Orders</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </header>
+    <div class="Second-Header">
+      <div class="filter-container">
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="Headphones">Headphones</option>
+          <option value="Smart Watches">Smart Watches</option>
+          <option value="Controllers">Controllers</option>
+          <option value="Microphones">Microphones</option>
+          <option value="Mouses">Mouses</option>
+        </select>
+        <select id="priceFilter">
+          <option value="all">All Prices</option>
+          <option value="0-100">0 - 100</option>
+          <option value="100-200">100 - 200</option>
+          <option value="200-300">200 - 300</option>
+          <option value="300-400">300 - 400</option>
+          <option value="400-500">400 - 500</option>
+        </select>
+      </div>
+    </div>
+    <div class="products-container">
+      <div class="products-list" id="products-list"></div>
+      <div id="loader" style="display: none">Loading...</div>
+    </div>
+    <footer>
+      <div class="footer-wrapper">
+        <div class="footer-col brand">
+          <a href="#" class="footer-logo">ELECTRO&nbsp;ZONE</a>
+          <p class="footer-about">
+            Your one‑stop destination for the latest electronics, gadgets and
+            accessories. Explore innovation, grab the hottest deals, and stay
+            ahead of the tech curve.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="#">Smartphones</a></li>
+            <li><a href="#">Laptops &nbsp;/&nbsp; PCs</a></li>
+            <li><a href="#">Smart&nbsp;Watches</a></li>
+            <li><a href="#">Audio&nbsp;Gear</a></li>
+            <li><a href="#">Gaming&nbsp;Accessories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col newsletter">
+          <h3>Stay&nbsp;in&nbsp;the&nbsp;Loop</h3>
+          <p>New drops, flash sales&nbsp;– straight to your inbox.</p>
+          <form
+            class="subscribe-form"
+            onsubmit="event.preventDefault(); alert('Subscribed!');"
+          >
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+
+          <div class="footer-contact">
+            <p>
+              <i class="fa-solid fa-location-dot"></i> Banglore,Karnataka, IN
+            </p>
+            <p><i class="fa-solid fa-phone"></i> +91 6565353525</p>
+            <p><i class="fa-solid fa-envelope"></i> support@electrozone.com</p>
+          </div>
+
+          <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Electro Zone. All rights reserved.</p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+      const productList = document.getElementById("products-list");
+      const categoryFilter = document.getElementById("categoryFilter");
+      const priceFilter = document.getElementById("priceFilter");
+
+      let allProducts = [];
+      let filteredProducts = [];
+      let chunkSize = 4;
+      let currentIndex = 0;
+
+      function showSkeletons(count = chunkSize) {
+        productList.innerHTML = "";
+        for (let i = 0; i < count; i++) {
+          productList.innerHTML += `
+            <div class="skeleton-card">
+              <div class="skeleton skeleton-img"></div>
+              <div class="skeleton skeleton-text" style="width: 80%;"></div>
+              <div class="skeleton skeleton-text" style="width: 50%;"></div>
+            </div>
+          `;
+        }
+      }
+
+      function appendSkeletons(count = 4) {
+        for (let i = 0; i < count; i++) {
+          productList.innerHTML += `
+            <div class="skeleton-card">
+              <div class="skeleton skeleton-img"></div>
+              <div class="skeleton skeleton-text" style="width: 80%;"></div>
+              <div class="skeleton skeleton-text" style="width: 50%;"></div>
+            </div>
+          `;
+        }
+      }
+
+      function fetchAndRenderProducts() {
+        const selectedCategory = categoryFilter.value;
+        const selectedPrice = priceFilter.value;
+
+        let url = "https://electrozone-cqf9.onrender.com/products";
+        if (selectedCategory !== "all") {
+          url = `https://electrozone-cqf9.onrender.com/products/category/${encodeURIComponent(
+            selectedCategory
+          )}`;
+        }
+
+        showSkeletons();
+        currentIndex = 0;
+
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) throw new Error("Network error");
+            return response.json();
+          })
+          .then((products) => {
+            allProducts = products;
+
+            if (selectedPrice !== "all") {
+              const [min, max] = selectedPrice.split("-").map(Number);
+              filteredProducts = allProducts.filter(
+                (product) => product.price >= min && product.price <= max
+              );
+            } else {
+              filteredProducts = allProducts;
+            }
+
+            if (filteredProducts.length === 0) {
+              productList.innerHTML = "No Product Available";
+            } else {
+              productList.innerHTML = "";
+              renderNextChunk();
+            }
+          })
+          .catch((error) => {
+            productList.innerHTML = "Something went wrong!";
+            console.error("Error fetching products:", error);
+          });
+      }
+
+      function renderNextChunk() {
+        const endIndex = currentIndex + chunkSize;
+        const chunk = filteredProducts.slice(currentIndex, endIndex);
+
+        chunk.forEach((product) => {
+          productList.innerHTML += `
+            <div class="product">
+              <div class="product-image" style="background-image: url(${product.image});">
+                <span class="add-cart"><i class="fa-solid fa-cart-plus"></i></span>
+              </div>
+              <p>${product.title}</p>
+              <div class="Price-div">
+                <h2>$${product.price}</h2>
+                <span>${product.rating}.0<i class="fa-solid fa-star"></i></span>
+              </div>
+            </div>
+          `;
+        });
+
+        currentIndex = endIndex;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 200
+        ) {
+          if (currentIndex < filteredProducts.length) {
+            appendSkeletons(4);
+            setTimeout(() => {
+              const skeletons = document.querySelectorAll(".skeleton-card");
+              skeletons.forEach((skel) => skel.remove());
+              renderNextChunk();
+            }, 700);
+          }
+        }
+      });
+
+      categoryFilter.addEventListener("change", fetchAndRenderProducts);
+      priceFilter.addEventListener("change", fetchAndRenderProducts);
+      fetchAndRenderProducts();
+    </script>
+  </body>
+</html>

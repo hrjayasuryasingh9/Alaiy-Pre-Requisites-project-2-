@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+
+      .cart-container {
+        margin-top: 70px;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .cart-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        width: 70%;
+        max-width: 1186px;
+        height: 90vh;
+        padding: 10px;
+        /* */
+        overflow-y: auto;
+        gap: 10px; /* use gap instead of margin */
+      }
+
+      .cart-item {
+        background-color: white;
+        min-width: 350px;
+        width: 45%;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 10px;
+        margin: 10px;
+        position: relative;
+        box-sizing: border-box;
+        border-radius: 10px;
+      }
+
+      .qty-updater {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .qty-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #f6f5f8;
+        border: 1px solid gray;
+        border-radius: 4px;
+      }
+
+      .qty-value {
+        font-weight: bold;
+      }
+
+      .product-image {
+        width: 160px;
+        height: 100%;
+        background-image: url(https://row.hyperx.com/cdn/shop/products/hyperx_clutch_gladiate_6l366aa_main_1_900x.jpg?v=1675110393);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .cart-details {
+        padding: 10px 0px;
+        align-items: center;
+      }
+      .buttons-of-cart {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .qty-updater {
+        padding: 10px;
+      }
+      .cart-item .checkout-btn {
+        background-color: #3f5efb;
+        padding: 10px 45px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 15px;
+      }
+      .cart-checkout {
+        width: 25%;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        position: sticky;
+        top: 20px;
+        align-self: flex-start;
+        margin: 25px;
+      }
+
+      @media (max-width: 1000px) {
+        .cart-checkout {
+          width: 100%;
+          height: 40vh;
+        }
+        .cart-list {
+          width: 100%;
+          height: 100vh;
+        }
+      }
+      @media (max-width: 773px) {
+        .cart-item {
+          width: 100%;
+        }
+      }
+      .product-name {
+        font-size: 15px;
+        width: 190px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        padding: 10px 0px;
+      }
+
+      .checkout-summary {
+        margin-bottom: 30px;
+      }
+
+      .checkout-summary h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      .summary-item.total {
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: #111;
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        padding: 14px 0;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .checkout-btn:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div><a href="index.html">ELECTRO ZONE</a></div>
+      <ul>
+        <li>
+          <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+        </li>
+        <li>
+          <a href="" id="userIcon"><i class="fa-solid fa-user"></i></a>
+          <ul class="dropdown-menu" id="dropdownMenu">
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Login</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fa-solid fa-list-check"></i> My Orders</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </header>
+    <div class="cart-container">
+      <div class="cart-list" id="cart-container"></div>
+      <div class="cart-checkout">
+        <div class="checkout-summary">
+          <h2>Order Summary</h2>
+          <div class="summary-item">
+            <span>Total Items:</span>
+            <span id="total-items">0</span>
+          </div>
+          <div class="summary-item total">
+            <span>Total Price:</span>
+            <span id="total-price">₹0</span>
+          </div>
+        </div>
+        <button class="checkout-btn" onclick="handleCheckout()">
+          Checkout
+        </button>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-wrapper">
+        <div class="footer-col brand">
+          <a href="#" class="footer-logo">ELECTRO&nbsp;ZONE</a>
+          <p class="footer-about">
+            Your one‑stop destination for the latest electronics, gadgets and
+            accessories. Explore innovation, grab the hottest deals, and stay
+            ahead of the tech curve.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="#">Smartphones</a></li>
+            <li><a href="#">Laptops &nbsp;/&nbsp; PCs</a></li>
+            <li><a href="#">Smart&nbsp;Watches</a></li>
+            <li><a href="#">Audio&nbsp;Gear</a></li>
+            <li><a href="#">Gaming&nbsp;Accessories</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact + newsletter -->
+        <div class="footer-col newsletter">
+          <h3>Stay&nbsp;in&nbsp;the&nbsp;Loop</h3>
+          <p>New drops, flash sales&nbsp;– straight to your inbox.</p>
+          <form
+            class="subscribe-form"
+            onsubmit="event.preventDefault(); alert('Subscribed!');"
+          >
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+
+          <div class="footer-contact">
+            <p>
+              <i class="fa-solid fa-location-dot"></i> Banglore,Karnataka, IN
+            </p>
+            <p><i class="fa-solid fa-phone"></i> +91 6565353525</p>
+            <p><i class="fa-solid fa-envelope"></i> support@electrozone.com</p>
+          </div>
+
+          <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Electro Zone. All rights reserved.</p>
+      </div>
+    </footer>
+    <script>
+      async function getCartItems() {
+        const token = localStorage.getItem("access_token");
+
+        if (!token) {
+          alert("You must be logged in to view the cart.");
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            "https://electrozone-cqf9.onrender.com/cart",
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              credentials: "include",
+            }
+          );
+
+          if (response.status === 200) {
+            const responses = await response.json(); // only using the first item for now
+            const data = responses.items;
+            document.getElementById("total-items").textContent =
+              responses.total_items;
+            document.getElementById(
+              "total-price"
+            ).textContent = `$${responses.items.reduce(
+              (sum, item) => sum + item.total_price,
+              0
+            )}`;
+
+            const cart_container = document.getElementById("cart-container");
+            console.log(data);
+            data.forEach((item) => {
+              cart_container.innerHTML += `
+                    <div class="cart-item"  data-product-id=${item.product_id}>
+                        <div class="product-image" style="width: 150px; height: 150px; overflow: hidden;">
+                        <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+
+                        <div class="cart-details">
+                        <h3 class="product-name">${item.title}</h3>
+                        <p class="product-price">
+                            ₹${item.price_per_unit} x <span class="product-qty">${item.quantity}</span> = ₹${item.total_price}
+                        </p>
+
+                        <div class="buttons-of-cart">
+                            <div class="qty-updater">
+                            <button class="qty-btn">-</button>
+                            <span class="qty-value">${item.quantity}</span>
+                            <button class="qty-btn">+</button>
+                            </div>
+                        </div>
+                        <button class="checkout-btn">Checkout</button>
+                        </div>
+                    </div>
+                    `;
+            });
+          } else {
+            const error = await response.json();
+            alert("Error: " + error.detail);
+          }
+        } catch (err) {
+          console.error("Network error:", err);
+          alert("Network error. Please try again.");
+        }
+      }
+      getCartItems();
+
+      document.addEventListener("click", async (e) => {
+        const token = localStorage.getItem("access_token");
+
+        if (!token) {
+          alert("You must be logged in.");
+          return;
+        }
+
+        const button = e.target.closest(".qty-btn");
+        if (!button) return;
+
+        const isIncrement = button.textContent === "+";
+        const isDecrement = button.textContent === "-";
+
+        if (!isIncrement && !isDecrement) return;
+
+        const cartItem = button.closest(".cart-item");
+        const qtyValue = cartItem.querySelector(".qty-value");
+        const productQtySpan = cartItem.querySelector(".product-qty");
+        const productPrice = cartItem.querySelector(".product-price");
+        const unitPrice = parseFloat(
+          productPrice.textContent.match(/₹(\d+)/)[1]
+        );
+        const productId = parseInt(cartItem.dataset.productId);
+
+        let currentQty = parseInt(qtyValue.textContent);
+        let newQty = isIncrement ? currentQty + 1 : currentQty - 1;
+
+        try {
+          const res = await fetch(
+            `https://electrozone-cqf9.onrender.com/cart/updatequantity/${productId}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ quantity: newQty }),
+              credentials: "include",
+            }
+          );
+
+          const data = await res.json();
+
+          if (res.status === 200) {
+            if (newQty <= 0) {
+              cartItem.remove();
+              if (document.querySelectorAll(".cart-item").length === 0) {
+                document.querySelector(
+                  ".cart-container"
+                ).innerHTML = `<h2>Your cart is now empty.</h2>`;
+              }
+            } else {
+              qtyValue.textContent = newQty;
+              productQtySpan.textContent = newQty;
+              productPrice.innerHTML = `₹${unitPrice} x <span class="product-qty">${newQty}</span> = ₹${
+                unitPrice * newQty
+              }`;
+              updateCartSummary();
+            }
+          } else {
+            alert("Error: " + (data.detail || data.message));
+          }
+        } catch (err) {
+          console.error("Network error:", err);
+          alert("Failed to update quantity. Try again.");
+        }
+      });
+      function updateCartSummary() {
+        const cartItems = document.querySelectorAll(".cart-item");
+        let totalItems = 0;
+        let totalPrice = 0;
+
+        cartItems.forEach((item) => {
+          const qty = parseInt(item.querySelector(".qty-value").textContent);
+          const priceText = item.querySelector(".product-price").textContent;
+          const unitPrice = parseFloat(priceText.match(/₹(\d+)/)[1]);
+
+          totalItems += qty;
+          totalPrice += unitPrice * qty;
+        });
+
+        document.getElementById("total-items").textContent = totalItems;
+        document.getElementById(
+          "total-price"
+        ).textContent = `₹${totalPrice.toFixed(2)}`;
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

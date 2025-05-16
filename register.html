@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      footer {
+        margin-top: 0px;
+      }
+      .main-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+      .main-container .image-container {
+        width: 50%;
+        height: 90vh;
+        background-image: url(https://img.freepik.com/free-photo/headphones-bright-background_23-2147781751.jpg?uid=R138905131&ga=GA1.1.1274597210.1728058973&semt=ais_hybrid&w=740);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .main-container .login-container {
+        width: 50%;
+        max-width: 700px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        padding-top: 20px;
+        height: 90vh;
+      }
+      .main-container .login-container h1 {
+        font-size: 32px;
+        padding: 20px;
+      }
+      .main-container .login-container p {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px;
+      }
+      .login-form {
+        padding: 20px;
+        width: 90%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin: 30px 10px;
+      }
+
+      .login-form input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        background: transparent;
+        outline: none;
+        transition: border-color 0.3s;
+        margin: 10px;
+      }
+
+      .login-form input:focus {
+        border-bottom-color: #3f5efb;
+      }
+
+      .login-form button {
+        width: 90%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #3f5efb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .login-form button:hover {
+        background-color: #3f5efb;
+      }
+
+      .signup-link {
+        font-size: 14px;
+        color: #444;
+      }
+
+      .signup-link a {
+        color: #3f5efb;
+        text-decoration: none;
+      }
+
+      .signup-link a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 1000px) {
+        .main-container .image-container {
+          display: none;
+        }
+        .main-container .login-container {
+          width: 100%;
+          max-width: 1000px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div><a href="index.html">ELECTRO ZONE</a></div>
+      <ul>
+        <li>
+          <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+        </li>
+        <li>
+          <a href="" id="userIcon"><i class="fa-solid fa-user"></i></a>
+          <ul class="dropdown-menu" id="dropdownMenu">
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Login</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fa-solid fa-list-check"></i> My Orders</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </header>
+    <div class="space"></div>
+    <div class="main-container">
+      <div class="image-container"></div>
+      <div class="login-container">
+        <h1>Create Your Account</h1>
+        <p>
+          Join us today to enjoy exclusive offers, faster checkouts, and a
+          personalized shopping journey tailored just for you.
+        </p>
+        <form class="login-form" id="registerForm">
+          <input type="text" id="name" placeholder="Name" required />
+          <input type="email" id="email" placeholder="Email" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Register Now</button>
+          <p class="signup-link">
+            Don you have an account? <a href="login.html">Login in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-wrapper">
+        <div class="footer-col brand">
+          <a href="#" class="footer-logo">ELECTRO&nbsp;ZONE</a>
+          <p class="footer-about">
+            Your one‑stop destination for the latest electronics, gadgets and
+            accessories. Explore innovation, grab the hottest deals, and stay
+            ahead of the tech curve.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="#">Smartphones</a></li>
+            <li><a href="#">Laptops &nbsp;/&nbsp; PCs</a></li>
+            <li><a href="#">Smart&nbsp;Watches</a></li>
+            <li><a href="#">Audio&nbsp;Gear</a></li>
+            <li><a href="#">Gaming&nbsp;Accessories</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact + newsletter -->
+        <div class="footer-col newsletter">
+          <h3>Stay&nbsp;in&nbsp;the&nbsp;Loop</h3>
+          <p>New drops, flash sales&nbsp;– straight to your inbox.</p>
+          <form
+            class="subscribe-form"
+            onsubmit="event.preventDefault(); alert('Subscribed!');"
+          >
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+
+          <div class="footer-contact">
+            <p>
+              <i class="fa-solid fa-location-dot"></i> Banglore,Karnataka, IN
+            </p>
+            <p><i class="fa-solid fa-phone"></i> +91 6565353525</p>
+            <p><i class="fa-solid fa-envelope"></i> support@electrozone.com</p>
+          </div>
+
+          <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Electro Zone. All rights reserved.</p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+      const registerForm = document.getElementById("registerForm");
+
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Prevent form reload
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        try {
+          const response = await fetch(
+            "https://electrozone-cqf9.onrender.com/auth/register",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ name, email, password }),
+            }
+          );
+
+          if (response.status === 201) {
+            const data = await response.json();
+            alert("Registration successful!");
+            console.log("Registered user:", data);
+            // Optionally redirect or clear form
+            // window.location.href = "/login.html";
+          } else if (response.status === 400) {
+            const error = await response.json();
+            alert("Error: " + error.detail); // Likely "Email already registered"
+          } else {
+            alert("Unexpected error occurred. Try again later.");
+          }
+        } catch (err) {
+          console.error("Network error:", err);
+          alert("Network error. Please try again.");
+        }
+      });
+    </script>
+  </body>
+</html>

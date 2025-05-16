@@ -354,7 +354,7 @@
     <div class="Third-section">
       <div class="hero-session">
         <h1>The Latest</h1>
-        <a href="">View More</a>
+        <a href="ProductPage.html">View More</a>
       </div>
       <div class="products-list" id="products-list"></div>
     </div>
@@ -366,13 +366,12 @@
     <div class="Fifth-section">
       <div class="hero-session">
         <h1>Our Collection</h1>
-        <a href="">View More</a>
+        <a href="ProductPage.html">View More</a>
       </div>
       <div class="another-products-list" id="another-products-list"></div>
     </div>
     <footer>
       <div class="footer-wrapper">
-        <!-- Brand / short about -->
         <div class="footer-col brand">
           <a href="#" class="footer-logo">ELECTRO&nbsp;ZONE</a>
           <p class="footer-about">
@@ -382,7 +381,6 @@
           </p>
         </div>
 
-        <!-- Shop links -->
         <div class="footer-col">
           <h3>Shop</h3>
           <ul>
@@ -409,8 +407,10 @@
           </form>
 
           <div class="footer-contact">
-            <p><i class="fa-solid fa-location-dot"></i>  IN</p>
-            <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+            <p>
+              <i class="fa-solid fa-location-dot"></i> Banglore,Karnataka, IN
+            </p>
+            <p><i class="fa-solid fa-phone"></i> +91 6565353525</p>
             <p><i class="fa-solid fa-envelope"></i> support@electrozone.com</p>
           </div>
 
@@ -422,8 +422,6 @@
           </div>
         </div>
       </div>
-
-      <!-- thin bottom bar -->
       <div class="footer-bottom">
         <p>© 2025 Electro Zone. All rights reserved.</p>
       </div>
@@ -432,7 +430,7 @@
     <script>
       const product_list = document.getElementById("products-list");
       const another_list = document.getElementById("another-products-list");
-      fetch("Products.json")
+      fetch("https://electrozone-cqf9.onrender.com/products")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -440,8 +438,10 @@
           return response.json();
         })
         .then((products) => {
-          products.splice(0, 8).forEach((product) => {
-            product_list.innerHTML += `
+          const targetIds = [1, 2, 5, 6, 9, 10, 13, 14, 17, 18];
+          products.forEach((product) => {
+            if (targetIds.includes(Number(product.id))) {
+              product_list.innerHTML += `
             <div class="product">
                 <div
                     class="product-image"
@@ -449,7 +449,7 @@
                     background-image: url(${product.image});
                     "
                 >
-                    <span class="add-cart"><i class="fa-solid fa-cart-plus"></i></span>
+                    <span class="add-cart" onclick="addToCart(${product.id}, 1)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>
                 <p>${product.title}</p>
                 <div class="Price-div">
@@ -458,12 +458,13 @@
                 </div>
             </div>
               `;
+            }
           });
         })
         .catch((error) => {
           console.error("Error fetching the products:", error);
         });
-      fetch("Products.json")
+      fetch("https://electrozone-cqf9.onrender.com/products")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -483,7 +484,7 @@
                     background-image: url(${product.image});
                     "
                 >
-                    <span class="add-cart"><i class="fa-solid fa-cart-plus"></i></span>
+                    <span class="add-cart" onclick="addToCart(${product.id}, 1)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>
                 <p>${product.title}</p>
                 <div class="Price-div">

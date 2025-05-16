@@ -14,3 +14,43 @@ document.addEventListener("click", function (event) {
     dropdownMenu.style.display = "none";
   }
 });
+
+async function addToCart(productId, quantity) {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    alert("You must be logged in to add to cart.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://electrozone-cqf9.onrender.com/cart/addtocart/${productId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include token in Authorization header
+        },
+        body: JSON.stringify({ quantity }),
+        credentials: "include", // If your backend sets cookies too
+      }
+    );
+
+    if (response.status === 201) {
+      const data = await response.json();
+      console.log("Added to cart:", data.product);
+      alert("Product added to cart successfully!");
+    } else if (response.status === 401) {
+      const err = await response.json();
+      alert("Unauthorized: " + err.detail);
+    } else if (response.status === 404) {
+      const err = await response.json();
+      alert("Product not found: " + err.detail);
+    } else {
+      alert("An unexpected error occurred.");
+    }
+  } catch (error) {
+    console.error("Add to cart failed:", error);
+    alert("Failed to add product to cart. Try again later.");
+  }
+}
