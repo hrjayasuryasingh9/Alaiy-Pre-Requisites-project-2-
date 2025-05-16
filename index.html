@@ -267,7 +267,7 @@
       <div><a href="">ELECTRO ZONE</a></div>
       <ul>
         <li>
-          <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+          <a href="cartPage.html"><i class="fa-solid fa-cart-shopping"></i></a>
         </li>
         <li>
           <a href="" id="userIcon"><i class="fa-solid fa-user"></i></a>
@@ -448,6 +448,7 @@
                     style="
                     background-image: url(${product.image});
                     "
+                    onclick="window.location.href='ProductviewPage.html?id=${product.id}'"
                 >
                     <span class="add-cart" onclick="addToCart(${product.id}, 1)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>
@@ -483,6 +484,7 @@
                     style="
                     background-image: url(${product.image});
                     "
+                    onclick="window.location.href='ProductviewPage.html?id=${product.id}'"
                 >
                     <span class="add-cart" onclick="addToCart(${product.id}, 1)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>

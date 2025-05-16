@@ -183,6 +183,15 @@
       .checkout-btn:hover {
         background: #0056b3;
       }
+
+      .Empty-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        font-size: 20px;
+      }
     </style>
   </head>
   <body>
@@ -193,7 +202,9 @@
           <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
         </li>
         <li>
-          <a href="" id="userIcon"><i class="fa-solid fa-user"></i></a>
+          <a href="cartPage.html" id="userIcon"
+            ><i class="fa-solid fa-user"></i
+          ></a>
           <ul class="dropdown-menu" id="dropdownMenu">
             <li>
               <a href="#"
@@ -213,7 +224,11 @@
       </ul>
     </header>
     <div class="cart-container">
-      <div class="cart-list" id="cart-container"></div>
+      <div
+        class="cart-list"
+        id="cart-container"
+        style="text-align: center"
+      ></div>
       <div class="cart-checkout">
         <div class="checkout-summary">
           <h2>Order Summary</h2>
@@ -287,6 +302,7 @@
         <p>© 2025 Electro Zone. All rights reserved.</p>
       </div>
     </footer>
+    <script src="script.js"></script>
     <script>
       async function getCartItems() {
         const token = localStorage.getItem("access_token");
@@ -309,30 +325,38 @@
           );
 
           if (response.status === 200) {
-            const responses = await response.json(); // only using the first item for now
+            const responses = await response.json();
+            const cart_container = document.getElementById("cart-container");
+            if (!responses.items) {
+              cart_container.innerHTML = `
+              <div class="Empty-container">
+              <p>Your Cart Is empty please add something to cart</p>
+              </div>
+              `;
+              return;
+            }
             const data = responses.items;
-            document.getElementById("total-items").textContent =
-              responses.total_items;
+
             document.getElementById(
               "total-price"
             ).textContent = `$${responses.items.reduce(
               (sum, item) => sum + item.total_price,
               0
             )}`;
+            let all_products = 0;
 
-            const cart_container = document.getElementById("cart-container");
-            console.log(data);
             data.forEach((item) => {
+              all_products += item.quantity;
               cart_container.innerHTML += `
                     <div class="cart-item"  data-product-id=${item.product_id}>
-                        <div class="product-image" style="width: 150px; height: 150px; overflow: hidden;">
+                        <div class="product-image" style="width: 150px; height: 150px; overflow: hidden;" onclick="window.location.href='ProductviewPage.html?id=${item.product_id}'">
                         <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;" />
                         </div>
 
                         <div class="cart-details">
                         <h3 class="product-name">${item.title}</h3>
                         <p class="product-price">
-                            ₹${item.price_per_unit} x <span class="product-qty">${item.quantity}</span> = ₹${item.total_price}
+                            $${item.price_per_unit} x <span class="product-qty">${item.quantity}</span> = $${item.total_price}
                         </p>
 
                         <div class="buttons-of-cart">
@@ -342,11 +366,12 @@
                             <button class="qty-btn">+</button>
                             </div>
                         </div>
-                        <button class="checkout-btn">Checkout</button>
+                        
                         </div>
                     </div>
                     `;
             });
+            document.getElementById("total-items").textContent = all_products;
           } else {
             const error = await response.json();
             alert("Error: " + error.detail);
@@ -379,7 +404,7 @@
         const productQtySpan = cartItem.querySelector(".product-qty");
         const productPrice = cartItem.querySelector(".product-price");
         const unitPrice = parseFloat(
-          productPrice.textContent.match(/₹(\d+)/)[1]
+          productPrice.textContent.match(/[\d,.]+/)[0]
         );
         const productId = parseInt(cartItem.dataset.productId);
 
@@ -413,7 +438,7 @@
             } else {
               qtyValue.textContent = newQty;
               productQtySpan.textContent = newQty;
-              productPrice.innerHTML = `₹${unitPrice} x <span class="product-qty">${newQty}</span> = ₹${
+              productPrice.innerHTML = `$${unitPrice} x <span class="product-qty">${newQty}</span> = $${
                 unitPrice * newQty
               }`;
               updateCartSummary();
@@ -434,7 +459,7 @@
         cartItems.forEach((item) => {
           const qty = parseInt(item.querySelector(".qty-value").textContent);
           const priceText = item.querySelector(".product-price").textContent;
-          const unitPrice = parseFloat(priceText.match(/₹(\d+)/)[1]);
+          const unitPrice = parseFloat(priceText.match(/[\d,.]+/));
 
           totalItems += qty;
           totalPrice += unitPrice * qty;
@@ -443,9 +468,8 @@
         document.getElementById("total-items").textContent = totalItems;
         document.getElementById(
           "total-price"
-        ).textContent = `₹${totalPrice.toFixed(2)}`;
+        ).textContent = `$${totalPrice.toFixed(2)}`;
       }
     </script>
-    <script src="script.js"></script>
   </body>
 </html>

@@ -29,10 +29,10 @@ async function addToCart(productId, quantity) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ quantity }),
-        credentials: "include", // If your backend sets cookies too
+        credentials: "include",
       }
     );
 
@@ -52,5 +52,34 @@ async function addToCart(productId, quantity) {
   } catch (error) {
     console.error("Add to cart failed:", error);
     alert("Failed to add product to cart. Try again later.");
+  }
+}
+
+async function refreshAccessToken() {
+  try {
+    const response = await fetch(
+      "https://electrozone-cqf9.onrender.com/auth/refresh",
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    if (response.status === 201) {
+      const data = await response.json();
+      const newAccessToken = data.access_token;
+
+      localStorage.setItem("access_token", newAccessToken);
+
+      console.log("Access token refreshed successfully.");
+      return newAccessToken;
+    } else {
+      const error = await response.json();
+      console.warn("Refresh failed:", error.detail);
+      return null;
+    }
+  } catch (error) {
+    console.error("Network error during token refresh:", error);
+    return null;
   }
 }

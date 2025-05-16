@@ -173,7 +173,7 @@
       <div><a href="index.html">ELECTRO ZONE</a></div>
       <ul>
         <li>
-          <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+          <a href="cartpage.html"><i class="fa-solid fa-cart-shopping"></i></a>
         </li>
         <li>
           <a href="" id="userIcon"><i class="fa-solid fa-user"></i></a>
@@ -273,7 +273,7 @@
         <p>© 2025 Electro Zone. All rights reserved.</p>
       </div>
     </footer>
-    <script src="script.js"></script>
+
     <script>
       const productList = document.getElementById("products-list");
       const categoryFilter = document.getElementById("categoryFilter");
@@ -360,7 +360,7 @@
         chunk.forEach((product) => {
           productList.innerHTML += `
             <div class="product">
-              <div class="product-image" style="background-image: url(${product.image});">
+              <div class="product-image" style="background-image: url(${product.image});" onclick="window.location.href='ProductviewPage.html?id=${product.id}'">
                 <span class="add-cart"><i class="fa-solid fa-cart-plus"></i></span>
               </div>
               <p>${product.title}</p>
@@ -395,5 +395,6 @@
       priceFilter.addEventListener("change", fetchAndRenderProducts);
       fetchAndRenderProducts();
     </script>
+    <script src="script.js"></script>
   </body>
 </html>
