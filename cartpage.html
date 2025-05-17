@@ -319,72 +319,59 @@
     <script src="script.js"></script>
     <script>
       async function getCartItems() {
-        const token = localStorage.getItem("access_token");
-
-        if (!token) {
-          alert("You must be logged in to view the cart.");
-          return;
-        }
-
         try {
-          const response = await fetch(
-            "https://electrozone-cqf9.onrender.com/cart",
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-              credentials: "include",
-            }
+          const response = await authorizedFetch(
+            "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/cart",
+            { method: "GET" }
           );
 
           if (response.status === 200) {
             const responses = await response.json();
             const cart_container = document.getElementById("cart-container");
-            if (!responses.items) {
+
+            if (!responses.items || responses.items.length === 0) {
               cart_container.innerHTML = `
               <div class="Empty-container">
-              <p>Your Cart Is empty please add something to cart</p>
-              </div>
-              `;
+                <p>Your Cart Is empty please add something to cart</p>
+              </div>`;
               return;
             }
+
             const data = responses.items;
 
             document.getElementById(
               "total-price"
-            ).textContent = `$${responses.items.reduce(
+            ).textContent = `$${data.reduce(
               (sum, item) => sum + item.total_price,
               0
             )}`;
+
             let all_products = 0;
+            cart_container.innerHTML = ""; // clear existing items
 
             data.forEach((item) => {
               all_products += item.quantity;
               cart_container.innerHTML += `
-                    <div class="cart-item"  data-product-id=${item.product_id}>
-                        <div class="product-image" style="width: 150px; height: 150px; overflow: hidden;" onclick="window.location.href='ProductviewPage.html?id=${item.product_id}'">
-                        <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;" />
-                        </div>
-
-                        <div class="cart-details">
-                        <h3 class="product-name">${item.title}</h3>
-                        <p class="product-price">
-                            $${item.price_per_unit} x <span class="product-qty">${item.quantity}</span> = $${item.total_price}
-                        </p>
-
-                        <div class="buttons-of-cart">
-                            <div class="qty-updater">
-                            <button class="qty-btn">-</button>
-                            <span class="qty-value">${item.quantity}</span>
-                            <button class="qty-btn">+</button>
-                            </div>
-                        </div>
-                        
-                        </div>
+                <div class="cart-item" data-product-id=${item.product_id}>
+                  <div class="product-image" style="width: 150px; height: 150px; overflow: hidden;" onclick="window.location.href='ProductviewPage.html?id=${item.product_id}'">
+                    <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;" />
+                  </div>
+                  <div class="cart-details">
+                    <h3 class="product-name">${item.title}</h3>
+                    <p class="product-price">
+                      $${item.price_per_unit} x <span class="product-qty">${item.quantity}</span> = $${item.total_price}
+                    </p>
+                    <div class="buttons-of-cart">
+                      <div class="qty-updater">
+                        <button class="qty-btn">-</button>
+                        <span class="qty-value">${item.quantity}</span>
+                        <button class="qty-btn">+</button>
+                      </div>
                     </div>
-                    `;
+                  </div>
+                </div>`;
             });
+
             document.getElementById("total-items").textContent = all_products;
           } else {
             const error = await response.json();
@@ -395,22 +382,13 @@
           alert("Network error. Please try again.");
         }
       }
-      getCartItems();
 
       document.addEventListener("click", async (e) => {
-        const token = localStorage.getItem("access_token");
-
-        if (!token) {
-          alert("You must be logged in.");
-          return;
-        }
-
         const button = e.target.closest(".qty-btn");
         if (!button) return;
 
         const isIncrement = button.textContent === "+";
         const isDecrement = button.textContent === "-";
-
         if (!isIncrement && !isDecrement) return;
 
         const cartItem = button.closest(".cart-item");
@@ -418,7 +396,7 @@
         const productQtySpan = cartItem.querySelector(".product-qty");
         const productPrice = cartItem.querySelector(".product-price");
         const unitPrice = parseFloat(
-          productPrice.textContent.match(/[\d,.]+/)[0]
+          productPrice.textContent.match(/[\d.]+/)[0]
         );
         const productId = parseInt(cartItem.dataset.productId);
 
@@ -426,16 +404,12 @@
         let newQty = isIncrement ? currentQty + 1 : currentQty - 1;
 
         try {
-          const res = await fetch(
-            `https://electrozone-cqf9.onrender.com/cart/updatequantity/${productId}`,
+          const res = await authorizedFetch(
+            `https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/updatequantity/${productId}`,
             {
               method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ quantity: newQty }),
-              credentials: "include",
             }
           );
 
@@ -452,11 +426,11 @@
             } else {
               qtyValue.textContent = newQty;
               productQtySpan.textContent = newQty;
-              productPrice.innerHTML = `$${unitPrice} x <span class="product-qty">${newQty}</span> = $${
+              productPrice.innerHTML = `$${unitPrice} x <span class="product-qty">${newQty}</span> = $${(
                 unitPrice * newQty
-              }`;
-              updateCartSummary();
+              ).toFixed(2)}`;
             }
+            updateCartSummary();
           } else {
             alert("Error: " + (data.detail || data.message));
           }
@@ -465,6 +439,7 @@
           alert("Failed to update quantity. Try again.");
         }
       });
+
       function updateCartSummary() {
         const cartItems = document.querySelectorAll(".cart-item");
         let totalItems = 0;
@@ -473,7 +448,7 @@
         cartItems.forEach((item) => {
           const qty = parseInt(item.querySelector(".qty-value").textContent);
           const priceText = item.querySelector(".product-price").textContent;
-          const unitPrice = parseFloat(priceText.match(/[\d,.]+/));
+          const unitPrice = parseFloat(priceText.match(/[\d.]+/)[0]);
 
           totalItems += qty;
           totalPrice += unitPrice * qty;
@@ -484,23 +459,14 @@
           "total-price"
         ).textContent = `$${totalPrice.toFixed(2)}`;
       }
+
       async function handleCheckout() {
         try {
-          const token = localStorage.getItem("access_token"); // Get token if auth is needed
-
-          if (!token) {
-            alert("You must be logged in to place an order.");
-            return;
-          }
-
-          const response = await fetch(
-            "https://electrozone-cqf9.onrender.com/orders/create-order",
+          const response = await authorizedFetch(
+            "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/orders/create-order",
             {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
+              headers: { "Content-Type": "application/json" },
             }
           );
 
@@ -510,8 +476,6 @@
           }
 
           const data = await response.json();
-          console.log("Order Response:", data);
-
           alert(`✅ ${data.message}\nOrder ID: ${data.order_id}`);
           getCartItems();
         } catch (error) {
@@ -519,22 +483,13 @@
           alert(`❌ Error: ${error.message}`);
         }
       }
+
       async function clearCart() {
         try {
-          const token = localStorage.getItem("access_token");
-
-          if (!token) {
-            alert("You must be logged in to clear your cart.");
-            return;
-          }
-
-          const response = await fetch(
-            "https://electrozone-cqf9.onrender.com/cart/clear",
+          const response = await authorizedFetch(
+            "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/cart/clear",
             {
               method: "DELETE",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
             }
           );
 
@@ -544,14 +499,15 @@
           }
 
           const data = await response.json();
-          console.log("Cart Cleared:", data.message);
-          alert(` ${data.message}`);
+          alert(`${data.message}`);
           getCartItems();
         } catch (error) {
           console.error("Clear Cart Error:", error.message);
           alert(`❌ Error: ${error.message}`);
         }
       }
+
+      getCartItems();
     </script>
   </body>
 </html>

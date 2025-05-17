@@ -161,16 +161,15 @@
     <script src="script.js"></script>
     <script>
       async function fetchAndRenderOrders() {
-        const container = document.getElementById("orders-container"); // Replace with your actual container's ID or class
+        const container = document.getElementById("orders-container");
 
         try {
-          const response = await fetch(
-            "https://electrozone-cqf9.onrender.com/orders",
+          const response = await authorizedFetch(
+            "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/orders",
             {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
               },
             }
           );
@@ -188,21 +187,19 @@
             return;
           }
 
-          container.innerHTML = ""; // Clear existing content
+          container.innerHTML = "";
 
           allOrders.forEach((order) => {
             order.items.forEach((item) => {
               container.innerHTML += `
-          <div class="cart-item" data-product-id="${item.product_id}" onclick="window.location.href='ProductviewPage.html?id=${item.product_id}'">
-            <div class="cart-details">
-              <h3 class="product-name">${item.title}</h3>
-              <p class="product-price">
-                Total Price :${item.price}
-              </p>
-              <p class="order-status">Status: <strong>${item.status}</strong></p>
-            </div>
-          </div>
-        `;
+              <div class="cart-item" data-product-id="${item.product_id}" onclick="window.location.href='ProductviewPage.html?id=${item.product_id}'">
+                <div class="cart-details">
+                  <h3 class="product-name">${item.title}</h3>
+                  <p class="product-price">Total Price: ${item.price}</p>
+                  <p class="order-status">Status: <strong>${item.status}</strong></p>
+                </div>
+              </div>
+            `;
             });
           });
         } catch (error) {
@@ -210,6 +207,7 @@
           container.innerHTML = `<p style="color:red;">${error.message}</p>`;
         }
       }
+
       fetchAndRenderOrders();
     </script>
   </body>

@@ -45,72 +45,86 @@ function handleLogout() {
   window.location.href = "login.html";
 }
 
-async function addToCart(productId, quantity, event) {
-  event.stopPropagation();
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    alert("You must be logged in to add to cart.");
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `https://electrozone-cqf9.onrender.com/cart/addtocart/${productId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ quantity }),
-        credentials: "include",
-      }
-    );
-
-    if (response.status === 201) {
-      const data = await response.json();
-      console.log("Added to cart:", data.product);
-      alert("Product added to cart successfully!");
-    } else if (response.status === 401) {
-      const err = await response.json();
-      alert("Unauthorized: " + err.detail);
-    } else if (response.status === 404) {
-      const err = await response.json();
-      alert("Product not found: " + err.detail);
-    } else {
-      alert("An unexpected error occurred.");
-    }
-  } catch (error) {
-    console.error("Add to cart failed:", error);
-    alert("Failed to add product to cart. Try again later.");
-  }
-}
-
 async function refreshAccessToken() {
   try {
-    const response = await fetch(
-      "https://electrozone-cqf9.onrender.com/auth/refresh",
+    const res = await fetch(
+      "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/auth/refresh",
       {
         method: "GET",
         credentials: "include",
       }
     );
 
+    if (res.status === 201) {
+      const data = await res.json();
+      localStorage.setItem("access_token", data.access_token);
+      return data.access_token;
+    } else {
+      throw new Error("Refresh token expired or invalid");
+    }
+  } catch (err) {
+    console.error("Refresh token error:", err);
+    alert("Session expired. Please log in again.");
+    localStorage.removeItem("access_token");
+    window.location.href = "login.html";
+    return null;
+  }
+}
+
+async function authorizedFetch(url, options = {}, retry = true) {
+  const token = localStorage.getItem("access_token");
+  options.headers = {
+    ...(options.headers || {}),
+    Authorization: `Bearer ${token}`,
+  };
+  options.credentials = "include";
+
+  const res = await fetch(url, options);
+
+  if ((res.status === 401 || res.status === 404) && retry) {
+    const newToken = await refreshAccessToken();
+    if (!newToken) return res;
+
+    options.headers.Authorization = `Bearer ${newToken}`;
+    return fetch(url, options);
+  }
+  return res;
+}
+
+async function addToCart(productId, quantity, event) {
+  event.stopPropagation();
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    alert("Please login before adding to cart");
+    return;
+  }
+  const url = `https://electrozone-cqf9.onrender.com/cart/addtocart/${productId}`;
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ quantity }),
+  };
+
+  try {
+    const response = await authorizedFetch(url, options);
+
     if (response.status === 201) {
       const data = await response.json();
-      const newAccessToken = data.access_token;
-
-      localStorage.setItem("access_token", newAccessToken);
-
-      console.log("Access token refreshed successfully.");
-      return newAccessToken;
+      console.log("Added to cart:", data.product);
+      alert("✅ Product added to cart successfully!");
+    } else if (response.status === 401) {
+      const err = await response.json();
+      alert("❌ Unauthorized: " + err.detail);
+    } else if (response.status === 404) {
+      const err = await response.json();
+      alert("❌ Product not found: " + err.detail);
     } else {
-      const error = await response.json();
-      console.warn("Refresh failed:", error.detail);
-      return null;
+      alert("❌ An unexpected error occurred.");
     }
   } catch (error) {
-    console.error("Network error during token refresh:", error);
-    return null;
+    console.error("Add to cart failed:", error);
+    alert("❌ Failed to add product to cart. Try again later.");
   }
 }
