@@ -128,7 +128,6 @@
         }
         .cart-list {
           width: 100%;
-          height: 100vh;
         }
       }
       @media (max-width: 773px) {
@@ -478,6 +477,7 @@
           const data = await response.json();
           alert(`✅ ${data.message}\nOrder ID: ${data.order_id}`);
           getCartItems();
+          updateCartSummary();
         } catch (error) {
           console.error("Checkout Error:", error.message);
           alert(`❌ Error: ${error.message}`);
