@@ -268,7 +268,7 @@
       <div><a href="">ELECTRO ZONE</a></div>
       <ul>
         <li>
-          <a href="cartPage.html"><i class="fa-solid fa-cart-shopping"></i></a>
+          <a href="cartpage.html"><i class="fa-solid fa-cart-shopping"></i></a>
         </li>
         <li>
           <a href="" id="userIcon"><i class="fa-solid fa-user"></i></a>
@@ -431,7 +431,9 @@
     <script>
       const product_list = document.getElementById("products-list");
       const another_list = document.getElementById("another-products-list");
-      fetch("https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/products")
+      fetch(
+        "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -449,7 +451,7 @@
                     style="
                     background-image: url(${product.image});
                     "
-                    onclick="window.location.href='ProductviewPage.html?id=${product.id}'"
+                    onclick="window.location.href='ProductViewpage.html?id=${product.id}'"
                 >
                     <span class="add-cart" onclick="addToCart(${product.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>
@@ -466,7 +468,9 @@
         .catch((error) => {
           console.error("Error fetching the products:", error);
         });
-      fetch("https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/products")
+      fetch(
+        "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -485,7 +489,7 @@
                     style="
                     background-image: url(${product.image});
                     "
-                    onclick="window.location.href='ProductviewPage.html?id=${product.id}'"
+                    onclick="window.location.href='ProductViewpage.html?id=${product.id}'"
                 >
                     <span class="add-cart" onclick="addToCart(${product.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
                 </div>

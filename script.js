@@ -98,7 +98,7 @@ async function addToCart(productId, quantity, event) {
     alert("Please login before adding to cart");
     return;
   }
-  const url = `https://electrozone-cqf9.onrender.com/cart/addtocart/${productId}`;
+  const url = `https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/cart/addtocart/${productId}`;
   const options = {
     method: "POST",
     headers: {

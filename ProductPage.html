@@ -361,7 +361,7 @@
         chunk.forEach((product) => {
           productList.innerHTML += `
             <div class="product">
-              <div class="product-image" style="background-image: url(${product.image});" onclick="window.location.href='Productviewpage.html?id=${product.id}'">
+              <div class="product-image" style="background-image: url(${product.image});" onclick="window.location.href='ProductViewpage.html?id=${product.id}'">
                 <span class="add-cart" onclick="addToCart(${product.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
               </div>
               <p>${product.title}</p>
