@@ -405,7 +405,7 @@
 
         try {
           const res = await authorizedFetch(
-            `https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/updatequantity/${productId}`,
+            `https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/cart/updatequantity/${productId}`,
             {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
