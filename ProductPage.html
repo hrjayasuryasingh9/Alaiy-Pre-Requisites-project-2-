@@ -313,9 +313,10 @@
         const selectedCategory = categoryFilter.value;
         const selectedPrice = priceFilter.value;
 
-        let url = "https://electrozone-cqf9.onrender.com/products";
+        let url =
+          "https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/products";
         if (selectedCategory !== "all") {
-          url = `https://electrozone-cqf9.onrender.com/products/category/${encodeURIComponent(
+          url = `https://gw4kippdj6.execute-api.ap-southeast-2.amazonaws.com/dev/products/category/${encodeURIComponent(
             selectedCategory
           )}`;
         }
@@ -360,7 +361,7 @@
         chunk.forEach((product) => {
           productList.innerHTML += `
             <div class="product">
-              <div class="product-image" style="background-image: url(${product.image});" onclick="window.location.href='ProductviewPage.html?id=${product.id}'">
+              <div class="product-image" style="background-image: url(${product.image});" onclick="window.location.href='Productviewpage.html?id=${product.id}'">
                 <span class="add-cart" onclick="addToCart(${product.id}, 1,event)"><i class="fa-solid fa-cart-plus"></i></span>
               </div>
               <p>${product.title}</p>
